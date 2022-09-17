@@ -3,7 +3,9 @@ package auth
 import (
 	"fmt"
 	"github.com/Tushar456/go-grpc/go-grpc-api-gateway/pkg/auth/pb"
+	"github.com/Tushar456/go-grpc/go-grpc-api-gateway/pkg/auth/routes"
 	"github.com/Tushar456/go-grpc/go-grpc-api-gateway/pkg/config"
+	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 )
 
@@ -21,4 +23,11 @@ func InitServiceClient(c *config.Config) pb.AuthServiceClient {
 
 	return pb.NewAuthServiceClient(cc)
 
+}
+func (svc *ServiceClient) Register(ctx *gin.Context) {
+	routes.Register(ctx, svc.Client)
+}
+
+func (svc *ServiceClient) Login(ctx *gin.Context) {
+	routes.Login(ctx, svc.Client)
 }

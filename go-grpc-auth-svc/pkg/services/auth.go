@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/Tushar456/go-grpc-auth-svc/pkg/db"
@@ -72,7 +73,7 @@ func (s *Server) Validate(ctx context.Context, req *pb.ValidateRequest) (*pb.Val
 	}
 
 	var user models.User
-
+	fmt.Println("testing is ok")
 	if result := s.H.DB.Where(&models.User{Email: claims.Email}).First(&user); result.Error != nil {
 		return &pb.ValidateResponse{
 			Status: http.StatusNotFound,

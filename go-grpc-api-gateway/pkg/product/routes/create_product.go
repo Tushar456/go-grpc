@@ -2,6 +2,7 @@ package routes
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/Tushar456/go-grpc/go-grpc-api-gateway/pkg/product/pb"
@@ -21,6 +22,7 @@ func CreateProduct(ctx *gin.Context, c pb.ProductServiceClient) {
 		ctx.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
+	fmt.Println(body)
 
 	res, err := c.CreateProduct(context.Background(), &pb.CreateProductRequest{
 		Name:  body.Name,

@@ -2,6 +2,7 @@ package auth
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -22,13 +23,14 @@ func (c *AuthMiddlewareConfig) AuthRequired(ctx *gin.Context) {
 
 	if authorization == "" {
 		ctx.AbortWithStatus(http.StatusUnauthorized)
+		fmt.Println("1")
 		return
 	}
 
 	token := strings.Split(authorization, "Bearer ")
-
 	if len(token) < 2 {
 		ctx.AbortWithStatus(http.StatusUnauthorized)
+		fmt.Println("2")
 		return
 	}
 
@@ -38,6 +40,7 @@ func (c *AuthMiddlewareConfig) AuthRequired(ctx *gin.Context) {
 
 	if err != nil || res.Status != http.StatusOK {
 		ctx.AbortWithStatus(http.StatusUnauthorized)
+		fmt.Println("3")
 		return
 	}
 
